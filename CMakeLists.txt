@@ -9,6 +9,7 @@ set(INCLUDE_UI TRUE)
 
 set(BUILD_FILE ${CMAKE_SOURCE_DIR}/version.build)
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_BUILD_TYPE Debug)
 
 # Read build version
 file(STRINGS "${BUILD_FILE}" BUILD)
@@ -21,7 +22,7 @@ set(SOURCE_FILES)
 
 include(./CMakeLibs.cmake)
 
-set(UI_FILES include/ui/Actor.h include/ui/Group.h include/ui/components/Button.h include/ui/Stage.h src/ui/Stage.cpp src/ui/Actor.cpp src/ui/Group.cpp src/ui/Button.cpp)
+set(UI_FILES include/ui/Actor.h include/ui/Group.h include/ui/components/Button.h include/ui/Stage.h src/ui/Stage.cpp src/ui/Actor.cpp src/ui/Group.cpp src/ui/components/Button.cpp)
 
 
 set(SOURCE_FILES ${SOURCE_FILES} src/library.cpp include/library.h include/gl/OpenGLBootstrap.h src/gl/OpenGLBootstrap.cpp)

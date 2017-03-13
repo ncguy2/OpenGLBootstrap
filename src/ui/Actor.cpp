@@ -2,7 +2,9 @@
 // Created by Guy on 12/03/2017.
 //
 
+#include <iostream>
 #include "../../include/ui/Actor.h"
+#include "../../include/ui/Stage.h"
 
 Bounds Bounds::operator=(Bounds &other) {
     this->x = other.x;
@@ -30,7 +32,7 @@ void Actor::MouseMoved(glm::vec2 newPoint, glm::vec2 deltaPoint) {
 
 }
 
-void Actor::Clicked(glm::vec2 point) {
+void Actor::Clicked(glm::vec2 point, int button) {
 
 }
 
@@ -48,5 +50,25 @@ void Actor::Act(GLfloat delta) {
 }
 
 void Actor::Draw(bootstrap::RenderContext context) {
+
+}
+
+void Actor::MouseEntered(glm::vec2 point) {
+    hovered = true;
+    owningStage->UpdateHover(this);
+    std::cout << typeid(this).name() << " Entered" << std::endl;
+}
+
+void Actor::MouseExit(glm::vec2 point) {
+    hovered = false;
+    owningStage->UpdateHover(this);
+    std::cout << typeid(this).name() << " Exited" << std::endl;
+}
+
+void Actor::KeyPressed(int key) {
+
+}
+
+void Actor::KeyReleased(int key) {
 
 }

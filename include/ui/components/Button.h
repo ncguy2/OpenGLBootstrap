@@ -14,16 +14,18 @@ public:
     Button(const std::string &label);
 
     void SetLabel(std::string label);
-    void SetCallback(std::function<void(glm::vec2)> callback);
+    void SetCallback(std::function<void(glm::vec2,int)> callback);
     void ClearCallback();
+
+    void Clicked(glm::vec2 point, int button) override;
 
     void Draw(bootstrap::RenderContext context) override;
 
 protected:
-    void InvokeCallback(glm::vec2 point);
+    void InvokeCallback(glm::vec2 point, int button);
 private:
     std::string label;
-    std::function<void(glm::vec2)> clickCallback;
+    std::function<void(glm::vec2, int button)> clickCallback;
     bool hasFunction = false;
 };
 

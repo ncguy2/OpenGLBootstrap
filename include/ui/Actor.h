@@ -7,6 +7,8 @@
 
 #include "../gl/OpenGLBootstrap.h"
 
+class Stage;
+
 struct Bounds {
     float x;
     float y;
@@ -21,8 +23,13 @@ class Actor {
 public:
     void SetBounds(Bounds bounds);
 
-    void MouseMoved(glm::vec2 newPoint, glm::vec2 deltaPoint);
-    void Clicked(glm::vec2 point);
+    virtual void MouseMoved(glm::vec2 newPoint, glm::vec2 deltaPoint);
+    virtual void Clicked(glm::vec2 point, int button);
+    virtual void MouseEntered(glm::vec2 point);
+    virtual void MouseExit(glm::vec2 point);
+    virtual void KeyPressed(int key);
+    virtual void KeyReleased(int key);
+
     bool ContainsPoint(glm::vec2 point);
     glm::vec2 TransformPoint(glm::vec2 point);
 
@@ -30,6 +37,8 @@ public:
 
     virtual void Draw(bootstrap::RenderContext context);
     Bounds bounds;
+    bool hovered = false;
+    Stage* owningStage;
 protected:
 };
 

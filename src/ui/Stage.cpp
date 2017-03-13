@@ -5,6 +5,7 @@
 #include "../../include/ui/Stage.h"
 
 Stage::Stage(float width, float height) : width(width), height(height), root() {
+    root.owningStage = this;
     root.SetBounds({0, 0, width, height});
 }
 
@@ -16,8 +17,8 @@ void Stage::RemoveActor(Actor *actor) {
     root.Remove(actor);
 }
 
-void Stage::OnClick(double xPos, double yPos) {
-    root.Clicked({xPos, yPos});
+void Stage::OnClick(double xPos, double yPos, int button) {
+    root.Clicked({xPos, yPos}, button);
 }
 
 void Stage::OnMouseMove(double xPos, double yPos) {
@@ -37,4 +38,19 @@ void Stage::Act(GLfloat delta) {
 
 void Stage::Draw(bootstrap::RenderContext context) {
     root.Draw(context);
+}
+
+void Stage::OnKeyEvent(int keyCode, int action) {
+    if(action == GLFW_PRESS)
+        root.KeyPressed(keyCode);
+    else if(action == GLFW_RELEASE)
+        root.KeyReleased(keyCode);
+}
+
+void Stage::UpdateHover(Actor *actor) {
+    if(actor->hovered) {
+        hoveredPtrs.push_back(actor);
+    }else{
+        hoveredPtrs.remove(actor);
+    }
 }

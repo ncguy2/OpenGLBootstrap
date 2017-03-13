@@ -9,6 +9,7 @@ Group::Group() : children() {}
 
 void Group::Add(Actor *child) {
     children.push_back(child);
+    child->owningStage = owningStage;
 }
 
 void Group::Remove(Actor *child) {
@@ -21,17 +22,23 @@ void Group::Remove(Actor *child) {
 
 void Group::MouseMoved(glm::vec2 newPoint, glm::vec2 deltaPoint) {
     if(children.empty()) return;
-    for(Actor* child : children) {
-        if(child->ContainsPoint(newPoint))
-            child->MouseMoved(child->TransformPoint(newPoint), deltaPoint);
+    for(int i = 0; i < children.size(); i++) {
+        Actor* a = children[i];
+        if(a->ContainsPoint(newPoint)) {
+            if(!a->hovered)
+                a->MouseEntered(a->TransformPoint(newPoint));
+            a->MouseMoved(a->TransformPoint(newPoint), deltaPoint);
+        }else if(a->hovered)
+            a->MouseExit(a->TransformPoint(newPoint));
     }
 }
 
-void Group::Clicked(glm::vec2 point) {
+void Group::Clicked(glm::vec2 point, int button) {
     if(children.empty()) return;
-    for(Actor* child : children) {
-        if(child->ContainsPoint(point))
-            child->Clicked(child->TransformPoint(point));
+    for(int i = 0; i < children.size(); i++) {
+        Actor* a = children[i];
+        if(a->ContainsPoint(point))
+            a->Clicked(a->TransformPoint(point), button);
     }
 }
 
@@ -54,4 +61,20 @@ void Group::Draw(bootstrap::RenderContext context) {
                          glm::vec2(child->bounds.x, child->bounds.y),
                  context.glyphRenderer
                 });
+}
+
+void Group::MouseEntered(glm::vec2 point) {
+    Actor::MouseEntered(point);
+}
+
+void Group::MouseExit(glm::vec2 point) {
+    Actor::MouseExit(point);
+}
+
+void Group::KeyPressed(int key) {
+    Actor::KeyPressed(key);
+}
+
+void Group::KeyReleased(int key) {
+    Actor::KeyReleased(key);
 }

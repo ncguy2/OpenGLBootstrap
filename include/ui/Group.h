@@ -26,7 +26,15 @@ public:
     void Remove(Actor* child);
 
     void MouseMoved(glm::vec2 newPoint, glm::vec2 deltaPoint);
-    void Clicked(glm::vec2 point);
+    void Clicked(glm::vec2 point, int button);
+
+    void MouseEntered(glm::vec2 point) override;
+
+    void MouseExit(glm::vec2 point) override;
+
+    void KeyPressed(int key) override;
+
+    void KeyReleased(int key) override;
 
     void Act(GLfloat delta) override;
 
