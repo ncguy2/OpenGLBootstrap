@@ -56,7 +56,7 @@ void Group::Draw(bootstrap::RenderContext context) {
         child->Draw(
                 {context.projectionMatrix,
                  context.shader,
-                 context.modelMatrix,
+                 glm::translate(context.modelMatrix, glm::vec3(child->bounds.xy(), 0.f)),
                  context.currentOffset +
                          glm::vec2(child->bounds.x, child->bounds.y),
                  context.glyphRenderer

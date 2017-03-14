@@ -23,6 +23,7 @@ public:
 
 protected:
     void InvokeCallback(glm::vec2 point, int button);
+    std::string hoverRegionName;
 private:
     std::string label;
     std::function<void(glm::vec2, int button)> clickCallback;

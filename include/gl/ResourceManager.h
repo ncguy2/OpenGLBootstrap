@@ -30,9 +30,10 @@ public:
     ResourceManager(ResourceManager const&) = delete;
     void operator=(ResourceManager const&) = delete;
 
+    Texture LoadTextureFromFile(std::string file, GLboolean alpha);
+
 private:
     ResourceManager() {}
-    Texture LoadTextureFromFile(std::string file, GLboolean alpha);
     Shader LoadShaderFromFile(std::string vertFile, std::string fragFile, std::string geomFile);
 };
 

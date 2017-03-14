@@ -11,7 +11,7 @@ Texture::Texture() : width(0), height(0),
     glGenTextures(1, &this->id);
 }
 
-void TextureBinder::Generate(Texture tex, GLuint width, GLuint height, unsigned char *data) {
+void TextureBinder::Generate(Texture& tex, GLuint width, GLuint height, unsigned char *data) {
     tex.width = width;
     tex.height = height;
 

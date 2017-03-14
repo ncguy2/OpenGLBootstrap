@@ -25,7 +25,7 @@ public:
         return instance;
     }
 
-    void Generate(Texture tex, GLuint width, GLuint height, unsigned char* data);
+    void Generate(Texture &tex, GLuint width, GLuint height, unsigned char *data);
     void Bind(Texture texture) const;
 };
 

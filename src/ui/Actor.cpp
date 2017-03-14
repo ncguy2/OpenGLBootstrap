@@ -24,6 +24,10 @@ bool Bounds::operator^(glm::vec2 &other) {
     return true;
 }
 
+glm::vec2 Bounds::xy() {
+    return {x, y};
+}
+
 void Actor::SetBounds(Bounds bounds) {
     this->bounds = bounds;
 }
@@ -50,7 +54,8 @@ void Actor::Act(GLfloat delta) {
 }
 
 void Actor::Draw(bootstrap::RenderContext context) {
-
+    if(baseRegionName.empty()) return;
+    owningStage->DrawRegion(owningStage->GetAtlas().GetEntry(baseRegionName), context.modelMatrix, glm::vec3(bounds.w, bounds.h, 1.f), colour);
 }
 
 void Actor::MouseEntered(glm::vec2 point) {

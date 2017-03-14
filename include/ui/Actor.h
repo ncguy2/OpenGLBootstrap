@@ -6,6 +6,7 @@
 #define OPENGLBOOTSTRAP_ACTOR_H
 
 #include "../gl/OpenGLBootstrap.h"
+#include "../texture/TextureAtlas.h"
 
 class Stage;
 
@@ -15,6 +16,7 @@ struct Bounds {
     float w;
     float h;
 
+    glm::vec2 xy();
     Bounds operator=(Bounds& other);
     bool operator^(glm::vec2& other);
 };
@@ -40,6 +42,8 @@ public:
     bool hovered = false;
     Stage* owningStage;
 protected:
+    glm::vec4 colour = glm::vec4(1.f);
+    std::string baseRegionName;
 };
 
 #endif //OPENGLBOOTSTRAP_ACTOR_H

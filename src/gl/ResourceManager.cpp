@@ -7,6 +7,7 @@
 #include <iostream>
 #include "../../include/gl/ResourceManager.h"
 #include "../../include/util/lodepng.h"
+#include "../../ext/SOIL/SOIL.h"
 
 Shader ResourceManager::LoadShader(std::string vertFile, std::string fragFile, std::string geomFile, std::string name) {
     shaders[name] = LoadShaderFromFile(vertFile, fragFile, geomFile);
@@ -32,11 +33,15 @@ Texture ResourceManager::LoadTextureFromFile(std::string file, GLboolean alpha) 
         tex.internalFormat = GL_RGBA;
         tex.imageFormat = GL_RGBA;
     }
-    unsigned int w, h;
-    std::vector<unsigned char> image;
-    lodepng::decode(image, w, h, file);
-    unsigned char* data = (unsigned char *) image.front();
+    int w, h;
+//    std::vector<unsigned char> image;
+//    lodepng::decode(image, w, h, file);
+//    unsigned char* data = image.data();
+
+    unsigned char* data = SOIL_load_image(file.c_str(), &w, &h, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+
     TextureBinder::GetInstance().Generate(tex, w, h, data);
+    SOIL_free_image_data(data);
     return tex;
 }
 

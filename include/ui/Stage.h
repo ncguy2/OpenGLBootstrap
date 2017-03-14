@@ -10,7 +10,7 @@
 
 class Stage {
 public:
-    Stage(float width, float height);
+    Stage(float width, float height, TextureAtlas& atlas);
 
     void AddActor(Actor* actor);
     void RemoveActor(Actor* actor);
@@ -20,7 +20,20 @@ public:
     void Act(GLfloat delta);
     void Draw(bootstrap::RenderContext context);
     void UpdateHover(Actor* actor);
+
+    void DrawRegion(TextureRegion region, glm::mat4 model, glm::vec3 scale = glm::vec3(1.f), glm::vec4 colour = glm::vec4(1.f));
+    void DrawTexture(Texture texture, glm::mat4 model, glm::vec3 scale = glm::vec3(1.f), glm::vec4 colour = glm::vec4(1.f));
+
+    TextureAtlas& GetAtlas();
+    Shader* P_GetShader();
+
 protected:
+
+    void InitializeRenderData();
+    GLuint VAO;
+
+    TextureAtlas atlas;
+    Shader shader;
     Actor* keyboardFocus;
     Actor* scrollFocus;
     float width;
